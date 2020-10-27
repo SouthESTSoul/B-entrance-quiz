@@ -16,7 +16,7 @@ public class StudentController {
 
     private final StudentService studentService;
 
-    @GetMapping("students")
+    @GetMapping("/students")
     public ResponseEntity getStudents() {
         List<Student> students = studentService.getStudents();
         return ResponseEntity.ok().body(students);
