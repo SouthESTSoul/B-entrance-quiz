@@ -12,7 +12,8 @@ public class StudentServiceImpl implements StudentService {
 
     public static CopyOnWriteArrayList studentDB=new CopyOnWriteArrayList<Student>();
 
-    public StudentServiceImpl() {
+    public static void initStudentDB(){
+        studentDB.clear();
         studentDB.add(new Student(1,"成吉思汗"));
         studentDB.add(new Student(2,"鲁班七号"));
         studentDB.add(new Student(3,"太乙真人"));
@@ -28,6 +29,9 @@ public class StudentServiceImpl implements StudentService {
         studentDB.add(new Student(13,"哪吒"));
         studentDB.add(new Student(14,"大桥"));
         studentDB.add(new Student(15,"蔡文姬"));
+    };
+    public StudentServiceImpl() {
+        initStudentDB();
     }
 
     @Override
