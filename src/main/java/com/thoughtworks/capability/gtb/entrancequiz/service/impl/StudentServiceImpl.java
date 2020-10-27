@@ -4,7 +4,7 @@ import com.thoughtworks.capability.gtb.entrancequiz.dto.Student;
 import com.thoughtworks.capability.gtb.entrancequiz.service.StudentService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
@@ -36,7 +36,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getStudents() {
-
-        return studentDB;
+        ArrayList<Student> students = new ArrayList<>();
+        students.addAll(studentDB);
+        Collections.sort(students, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o1.getId()-o2.getId();
+            }
+        });
+        return students;
     }
 }
