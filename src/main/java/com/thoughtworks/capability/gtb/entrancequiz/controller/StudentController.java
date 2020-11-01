@@ -34,16 +34,16 @@ public class StudentController {
         return ResponseEntity.created(new URI("student/groups")).build();
 
     }
-    @GetMapping("student/groups")
+    @GetMapping("/student/groups")
     public ResponseEntity getStudentsGroups(){
         List<StudentGroup> studentGroups = studentService.getStudentGroups();
         return ResponseEntity.ok().body(studentGroups);
 
     }
 
-    @PostMapping("student")
+    @PostMapping("/student")
     public ResponseEntity addStudent(@RequestBody Student student) throws URISyntaxException {
         studentService.addStudent(student);
-        return ResponseEntity.created(new URI("students")).build();
+        return ResponseEntity.created(new URI("/students")).build();
     }
 }

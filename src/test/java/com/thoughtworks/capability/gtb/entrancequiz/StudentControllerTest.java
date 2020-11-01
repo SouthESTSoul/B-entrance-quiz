@@ -1,5 +1,7 @@
 package com.thoughtworks.capability.gtb.entrancequiz;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.capability.gtb.entrancequiz.dto.Student;
 import com.thoughtworks.capability.gtb.entrancequiz.dto.StudentGroup;
 import com.thoughtworks.capability.gtb.entrancequiz.service.StudentService;
 import com.thoughtworks.capability.gtb.entrancequiz.service.impl.StudentServiceImpl;
@@ -56,5 +58,17 @@ public class StudentControllerTest {
                 .andExpect(jsonPath("$[0].students", hasSize(3)))
                 .andExpect(jsonPath("$[5].students", hasSize(2)));
 
+    }
+
+    @Test
+    void should_add_one_student() throws Exception {
+        Student student = new Student("guhao");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String studentJson = objectMapper.writeValueAsString(student);
+        mockMVC.perform(post("/student")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(studentJson))
+                .andExpect(status().is(201));
+        Assertions.assertEquals(16, StudentServiceImpl.studentDB.size());
     }
 }

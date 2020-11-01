@@ -104,6 +104,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void addStudent(Student student) {
+        int size = studentDB.size();
+        student.setId(size+1);
         studentDB.add(student);
     }
 }
