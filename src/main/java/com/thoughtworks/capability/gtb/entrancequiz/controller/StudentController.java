@@ -24,7 +24,7 @@ public class StudentController {
     }
 
 
-    @PostMapping("/students")
+    @PostMapping("/students/groups")
     public ResponseEntity groupStudentRandomly(){
         studentService.groupStudentRandomly();
         return ResponseEntity.ok() .build();
