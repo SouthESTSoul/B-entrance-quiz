@@ -11,10 +11,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class StudentTeam {
-    String teamName;
-    List<Student> studentTeam=new ArrayList<>();
-    void add(Student student){
-        studentTeam.add(student);
+public class StudentGroup {
+    String groupName;
+    List<Student> studentGroup=new ArrayList<>();
+
+    public StudentGroup(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void add(Student student){
+        studentGroup.add(student);
     }
 }

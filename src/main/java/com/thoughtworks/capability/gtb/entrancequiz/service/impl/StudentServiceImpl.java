@@ -1,6 +1,7 @@
 package com.thoughtworks.capability.gtb.entrancequiz.service.impl;
 
 import com.thoughtworks.capability.gtb.entrancequiz.dto.Student;
+import com.thoughtworks.capability.gtb.entrancequiz.dto.StudentGroup;
 import com.thoughtworks.capability.gtb.entrancequiz.service.StudentService;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ public class StudentServiceImpl implements StudentService {
 
     public static CopyOnWriteArrayList<Student> studentDB=new CopyOnWriteArrayList<Student>();
 
-    public static CopyOnWriteArrayList<ArrayList<Student>> studentGroups=new CopyOnWriteArrayList<ArrayList<Student>>();
+    public static CopyOnWriteArrayList<StudentGroup> studentGroups=new CopyOnWriteArrayList<StudentGroup>();
 
     public static void initStudentDB(){
         studentDB.clear();
@@ -38,10 +39,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public void initStudentGroups(){
+        studentGroups.clear();
         int groups=6;
         for (int i=0;i<groups;i++){
-        studentGroups.add(new ArrayList<Student>());
+        studentGroups.add(new StudentGroup((1+i)+" 组"));
         }
+        Collections.sort(studentGroups, new Comparator<StudentGroup>() {
+            @Override
+            public int compare(StudentGroup o1, StudentGroup o2) {
+                return o1.getGroupName().compareTo(o2.getGroupName());
+            }
+        });
     }
     @Override
     public List<Student> getStudents() {
@@ -53,12 +61,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void groupStudentRandomly() {
+        initStudentGroups();
         ArrayList<Student> students = randomSortStudent();
         int i=0;
         while (i<students.size()){
-            ArrayList<Student> studentGroup = studentGroups.get(i % studentGroups.size());
+            StudentGroup studentGroup = studentGroups.get(i % studentGroups.size());
             studentGroup.add(students.get(i));
-            sortListById(studentGroup);
+            sortListById(studentGroup.getStudentGroup());
             i++;
         }
         System.out.println(studentGroups.toString());
@@ -88,4 +97,8 @@ public class StudentServiceImpl implements StudentService {
         });
     }
 
+    @Override
+    public List<StudentGroup> getStudentGroups() {
+        return studentGroups;
+    }
 }

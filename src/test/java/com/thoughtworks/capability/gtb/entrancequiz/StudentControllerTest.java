@@ -36,7 +36,7 @@ public class StudentControllerTest {
     @Test
     void should_group_students_randomly() throws Exception {
 
-        mockMVC.perform(post("/students/groups")
+        mockMVC.perform(post("/student/groups")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
     }

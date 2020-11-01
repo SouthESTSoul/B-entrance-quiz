@@ -1,6 +1,7 @@
 package com.thoughtworks.capability.gtb.entrancequiz.controller;
 
 import com.thoughtworks.capability.gtb.entrancequiz.dto.Student;
+import com.thoughtworks.capability.gtb.entrancequiz.dto.StudentGroup;
 import com.thoughtworks.capability.gtb.entrancequiz.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,15 @@ public class StudentController {
     }
 
 
-    @PostMapping("/students/groups")
+    @PostMapping("/student/groups")
     public ResponseEntity groupStudentRandomly(){
         studentService.groupStudentRandomly();
         return ResponseEntity.ok() .build();
+    }
+    @GetMapping("student/groups")
+    public ResponseEntity getStudentsGroups(){
+        List<StudentGroup> studentGroups = studentService.getStudentGroups();
+        return ResponseEntity.ok().body(studentGroups);
+
     }
 }
