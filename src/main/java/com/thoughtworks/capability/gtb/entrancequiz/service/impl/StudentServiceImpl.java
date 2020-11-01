@@ -10,7 +10,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    public static CopyOnWriteArrayList studentDB=new CopyOnWriteArrayList<Student>();
+    public static CopyOnWriteArrayList<Student> studentDB=new CopyOnWriteArrayList<Student>();
+
+    public static CopyOnWriteArrayList<ArrayList<Student>> studentGroups=new CopyOnWriteArrayList<ArrayList<Student>>();
 
     public static void initStudentDB(){
         studentDB.clear();
@@ -32,18 +34,58 @@ public class StudentServiceImpl implements StudentService {
     };
     public StudentServiceImpl() {
         initStudentDB();
+        initStudentGroups();
     }
 
+    public void initStudentGroups(){
+        int groups=6;
+        for (int i=0;i<groups;i++){
+        studentGroups.add(new ArrayList<Student>());
+        }
+    }
     @Override
     public List<Student> getStudents() {
         ArrayList<Student> students = new ArrayList<>();
         students.addAll(studentDB);
-        Collections.sort(students, new Comparator<Student>() {
+        sortListById(students);
+        return students;
+    }
+
+    @Override
+    public void groupStudentRandomly() {
+        ArrayList<Student> students = randomSortStudent();
+        int i=0;
+        while (i<students.size()){
+            ArrayList<Student> studentGroup = studentGroups.get(i % studentGroups.size());
+            studentGroup.add(students.get(i));
+            sortListById(studentGroup);
+            i++;
+        }
+        System.out.println(studentGroups.toString());
+    }
+
+    //Knuth-Durstenfeld Shuffle
+    public ArrayList<Student> randomSortStudent(){
+        ArrayList<Student> result = new ArrayList<>();
+        Student[] randomStudents =new Student[studentDB.size()];
+        randomStudents= studentDB.toArray( randomStudents );
+        int studentCount=randomStudents.length;
+        for(int i=0;i<studentCount;i++){
+            int r =new Random().nextInt(studentCount-i);
+            Student temp=randomStudents[i];
+            randomStudents[i]= randomStudents[r];
+            randomStudents[r]=temp;
+        }
+        Collections.addAll(result,randomStudents);
+        return result;
+    }
+    public void sortListById(List<Student> list){
+        Collections.sort(list, new Comparator<Student>() {
             @Override
             public int compare(Student o1, Student o2) {
                 return o1.getId()-o2.getId();
             }
         });
-        return students;
     }
+
 }
