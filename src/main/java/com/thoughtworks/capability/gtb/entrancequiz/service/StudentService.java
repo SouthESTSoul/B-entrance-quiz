@@ -9,4 +9,5 @@ public interface StudentService {
     List<Student> getStudents();
     void groupStudentRandomly();
     List<StudentGroup>getStudentGroups();
+    void addStudent(Student student);
 }

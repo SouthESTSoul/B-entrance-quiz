@@ -101,4 +101,9 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentGroup> getStudentGroups() {
         return studentGroups;
     }
+
+    @Override
+    public void addStudent(Student student) {
+        studentDB.add(student);
+    }
 }

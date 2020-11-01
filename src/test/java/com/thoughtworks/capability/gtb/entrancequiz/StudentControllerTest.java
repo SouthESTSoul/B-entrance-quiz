@@ -33,7 +33,7 @@ public class StudentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(15)))
-                .andExpect(jsonPath("$[0].id",is(1)));
+                .andExpect(jsonPath("$[0].id", is(1)));
     }
 
     @Test
@@ -42,8 +42,8 @@ public class StudentControllerTest {
         mockMVC.perform(post("/student/groups")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(201));
-        StudentGroup firstGroup=studentService.getStudentGroups().get(0);
-        Assertions.assertEquals(firstGroup.getStudents().size(),3);
+        StudentGroup firstGroup = studentService.getStudentGroups().get(0);
+        Assertions.assertEquals(firstGroup.getStudents().size(), 3);
     }
 
     @Test
@@ -54,8 +54,7 @@ public class StudentControllerTest {
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(6)))
                 .andExpect(jsonPath("$[0].students", hasSize(3)))
-                .andExpect(jsonPath("$[5].students", hasSize(2)))
-        ;
+                .andExpect(jsonPath("$[5].students", hasSize(2)));
 
     }
 }

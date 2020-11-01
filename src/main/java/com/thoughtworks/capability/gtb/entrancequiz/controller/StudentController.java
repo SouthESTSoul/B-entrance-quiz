@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
@@ -38,5 +39,11 @@ public class StudentController {
         List<StudentGroup> studentGroups = studentService.getStudentGroups();
         return ResponseEntity.ok().body(studentGroups);
 
+    }
+
+    @PostMapping("student")
+    public ResponseEntity addStudent(@RequestBody Student student) throws URISyntaxException {
+        studentService.addStudent(student);
+        return ResponseEntity.created(new URI("students")).build();
     }
 }
