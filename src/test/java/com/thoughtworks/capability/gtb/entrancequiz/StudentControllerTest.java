@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +34,10 @@ public class StudentControllerTest {
     }
 
     @Test
-    void test(){
+    void should_group_students_randomly() throws Exception {
+
+        mockMVC.perform(post("/students/groups")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200));
     }
 }
