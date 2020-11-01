@@ -67,7 +67,7 @@ public class StudentServiceImpl implements StudentService {
         while (i<students.size()){
             StudentGroup studentGroup = studentGroups.get(i % studentGroups.size());
             studentGroup.add(students.get(i));
-            sortListById(studentGroup.getStudentGroup());
+            sortListById(studentGroup.getStudents());
             i++;
         }
         System.out.println(studentGroups.toString());

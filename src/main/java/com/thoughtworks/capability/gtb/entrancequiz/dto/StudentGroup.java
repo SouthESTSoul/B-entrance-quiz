@@ -13,13 +13,13 @@ import java.util.List;
 @Builder
 public class StudentGroup {
     String groupName;
-    List<Student> studentGroup=new ArrayList<>();
+    List<Student> students =new ArrayList<>();
 
     public StudentGroup(String groupName) {
         this.groupName = groupName;
     }
 
     public void add(Student student){
-        studentGroup.add(student);
+        students.add(student);
     }
 }

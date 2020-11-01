@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -26,9 +28,10 @@ public class StudentController {
 
 
     @PostMapping("/student/groups")
-    public ResponseEntity groupStudentRandomly(){
+    public ResponseEntity groupStudentRandomly() throws URISyntaxException {
         studentService.groupStudentRandomly();
-        return ResponseEntity.ok() .build();
+        return ResponseEntity.created(new URI("student/groups")).build();
+
     }
     @GetMapping("student/groups")
     public ResponseEntity getStudentsGroups(){
