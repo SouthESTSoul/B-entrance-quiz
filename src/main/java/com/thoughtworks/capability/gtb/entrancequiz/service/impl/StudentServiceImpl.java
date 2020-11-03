@@ -89,6 +89,7 @@ public class StudentServiceImpl implements StudentService {
         return result;
     }
     public void sortListById(List<Student> list){
+        // TODO GTB-知识点: - 了解下Comparator的静态方法
         Collections.sort(list, new Comparator<Student>() {
             @Override
             public int compare(Student o1, Student o2) {

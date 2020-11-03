@@ -16,12 +16,14 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
+// TODO GTB-知识点: - 构造器注入时可以省略@Autowired
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class StudentController {
 
     private final StudentService studentService;
 
     @GetMapping("/students")
+    // TODO GTB-知识点: - 没有使用泛型
     public ResponseEntity getStudents() {
         List<Student> students = studentService.getStudents();
         return ResponseEntity.ok().body(students);
