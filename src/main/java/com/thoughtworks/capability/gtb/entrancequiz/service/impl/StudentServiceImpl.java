@@ -5,16 +5,19 @@ import com.thoughtworks.capability.gtb.entrancequiz.dto.StudentGroup;
 import com.thoughtworks.capability.gtb.entrancequiz.service.StudentService;
 import org.springframework.stereotype.Service;
 
+// TODO GTB-工程实践: - import中不要使用通配符
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
+    // TODO GTB-知识点: - 没有使用钻石操作符
     public static CopyOnWriteArrayList<Student> studentDB=new CopyOnWriteArrayList<Student>();
 
     public static CopyOnWriteArrayList<StudentGroup> studentGroups=new CopyOnWriteArrayList<StudentGroup>();
 
+    // TODO GTB-知识点: - 不符合三层架构，缺少用于保存数据的Repository层
     public static void initStudentDB(){
         studentDB.clear();
         studentDB.add(new Student(1,"成吉思汗"));
@@ -35,12 +38,15 @@ public class StudentServiceImpl implements StudentService {
     };
     public StudentServiceImpl() {
         initStudentDB();
+        // TODO GTB-完成度: - 应该在点击分组的时候才生成组
         initStudentGroups();
     }
 
     public void initStudentGroups(){
         studentGroups.clear();
+        // TODO GTB-工程实践: - Magic Number
         int groups=6;
+        // TODO GTB-知识点: - 以下代码可以使用Java8 Stream简化
         for (int i=0;i<groups;i++){
         studentGroups.add(new StudentGroup((1+i)+" 组"));
         }
@@ -63,6 +69,7 @@ public class StudentServiceImpl implements StudentService {
     public void groupStudentRandomly() {
         initStudentGroups();
         ArrayList<Student> students = randomSortStudent();
+        // TODO GTB-工程实践: - 列表遍历推荐使用for循环
         int i=0;
         while (i<students.size()){
             StudentGroup studentGroup = studentGroups.get(i % studentGroups.size());
@@ -74,6 +81,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     //Knuth-Durstenfeld Shuffle
+    // TODO GTB-知识点: - 打乱顺序可以了解下Collections.shuffle()
     public ArrayList<Student> randomSortStudent(){
         ArrayList<Student> result = new ArrayList<>();
         Student[] randomStudents =new Student[studentDB.size()];
@@ -104,6 +112,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    // TODO GTB-工程实践: - 计算id的方式不够健壮，可以使用字段保存最大id
     public void addStudent(Student student) {
         int size = studentDB.size();
         student.setId(size+1);

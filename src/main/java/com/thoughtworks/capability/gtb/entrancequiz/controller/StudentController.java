@@ -30,6 +30,7 @@ public class StudentController {
     }
 
 
+    // TODO GTB-知识点: - 违反Restful实践, url不合理
     @PostMapping("/student/groups")
     public ResponseEntity groupStudentRandomly() throws URISyntaxException {
         studentService.groupStudentRandomly();
